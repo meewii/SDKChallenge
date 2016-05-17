@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,20 +32,25 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, String> {
 			JSONObject parent = new JSONObject();
 
 			// Build the meta
+			// add name given by the App's dev
 			meta.put("name",mName);
 
+			// add timestamp
 			long unixTime = System.currentTimeMillis() / 1000L;
 			meta.put("localTimeStamp", unixTime);
 
-			String connectionInfo = "wifi"; // getConnectionInfo();
-			meta.put("connectionInfo", connectionInfo);
+			// watch the connection status and add it to meta
+			ConnectionInfo ci = new ConnectionInfo(mContext);
+			String status = ci.getCurrentStatus();
+			meta.put("connectionInfo", status);
 
+			// create an event number (i didn't know how to generate it so i created a random number)
 			int eventNo = (int)(Math.random()*10000);
 			meta.put("eventNo", eventNo);
 
 			parent.put("meta", meta);
 
-			// Build the data
+			// Build the data (parameters given by the App's dev
 			if(mData != null) {
 				parent.put("data", mData);
 			} else {
@@ -99,8 +103,7 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, String> {
 
 		Log.i(TAG, "AsyncPostEvent.onPostExecute - status:"+status);
 
-		Toast toast = Toast.makeText(mContext, status, Toast.LENGTH_SHORT);
-		toast.show();
+		Toast.makeText(mContext, status, Toast.LENGTH_LONG).show();
 
 	}
 
