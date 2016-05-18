@@ -1,6 +1,8 @@
 package com.d360.sdk;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.util.Log;
 import android.widget.Toast;
 import org.json.JSONObject;
@@ -27,6 +29,18 @@ public class D360SDK {
 		}
 		Log.i(TAG, "Starting SDK with key " + apiKey);
     }
+
+	/**
+	 * Register the BroadcastReceiver that watches the Connectivity actions
+	 * @param ctx: Context of the app
+	 */
+	public static void registerToConnectivity(Context ctx) {
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
+
+		BroadcastReceiver receiver = new ConnectionChangeEvent();
+		ctx.registerReceiver(receiver, filter);
+	}
 
 	/**
 	 * Send a custom event to API

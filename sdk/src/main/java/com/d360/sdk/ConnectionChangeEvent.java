@@ -10,8 +10,8 @@ import org.json.JSONObject;
 
 
 /*
-* This BroadcastReceiver is registered in the SDK manifest.
-* It is receiving actions CONNECTIVITY_CHANGE and WIFI_STATE_CHANGED
+* This BroadcastReceiver is registered by the App's dev with the method D360SDK.registerToConnectivity();
+* It is receiving actions CONNECTIVITY_ACTION
 * */
 public class ConnectionChangeEvent extends BroadcastReceiver {
 
@@ -21,12 +21,12 @@ public class ConnectionChangeEvent extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		// When events CONNECTIVITY_CHANGE or WIFI_STATE_CHANGED are triggered
+		// When the event CONNECTIVITY_ACTION is triggered
 		// we check the connection
 		ConnectionInfo ci = new ConnectionInfo(context);
 		String status = ci.getCurrentStatus();
-
 		Log.d(TAG, "Receiver - connection status: " + status);
+
 
 		try {
 
@@ -35,7 +35,7 @@ public class ConnectionChangeEvent extends BroadcastReceiver {
 			parameters.put("changed_at", unixTime);
 			parameters.put("new_status", status);
 
-			// We send the connection status to the server through an event
+			// We send the connection status to the server
 			if(ci.isConnected()) {
 
 				// the information about the last disconnection is sent
@@ -47,7 +47,6 @@ public class ConnectionChangeEvent extends BroadcastReceiver {
 				}
 
 				new AsyncPostEvent("Change Connectivity Status", parameters, context).execute((Void[]) null);
-				//TODO limit API calls in receiver (pb sometimes the receiver is triggered 2 or 3 time in a row)
 
 			} else {
 

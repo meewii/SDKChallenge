@@ -25,6 +25,8 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, String> {
 	@Override
 	protected String doInBackground(Void... v) {
 
+		Log.d(TAG, "doInBackground...");
+
 		try {
 
 			// Build json that will be sent
@@ -72,21 +74,21 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, String> {
 							Log.i(TAG, "Successfully sent!");
 							return "Event successfully sent!";
 						} else {
-							Log.e(TAG, "AsyncPostEvent - \"httpCode\" is not 201");
+							Log.e(TAG, "\"httpCode\" is not 201");
 							return "Error post event: \"httpCode\" is not 201";
 						}
 
 					} else {
-						Log.e(TAG, "AsyncPostEvent - \"httpCode\" is null");
+						Log.e(TAG, "\"httpCode\" is null");
 						return "Error: \"httpCode\" is null";
 					}
 
 				} else {
-					Log.e(TAG, "AsyncPostEvent - \"meta\" is null");
+					Log.e(TAG, "\"meta\" is null");
 					return "Error: \"meta\" is null";
 				}
 			} else {
-				Log.e(TAG, "AsyncPostEvent - response is null");
+				Log.e(TAG, "Response is null");
 				return "Error: response is null";
 			}
 
@@ -101,7 +103,7 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, String> {
 	@Override
 	protected void onPostExecute(String status) {
 
-		Log.i(TAG, "AsyncPostEvent.onPostExecute - status:"+status);
+		Log.d(TAG, "AsyncPostEvent.onPostExecute - status:"+status);
 
 		Toast.makeText(mContext, status, Toast.LENGTH_LONG).show();
 

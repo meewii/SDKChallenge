@@ -24,9 +24,15 @@ public class MainActivity extends AppCompatActivity {
 
         D360SDK.init("kilctuhEeONbf-V1JMH7", getApplicationContext());
 
+		/*
+		Example A of how the App dev could use the SDK:
+		register a BroadcastReceiver that watches the phone connectivity
+		*/
+        D360SDK.registerToConnectivity(getApplicationContext());
+
 
 		/*
-		Example of how the App dev could use the SDK:
+		Example B of how the App dev could use the SDK:
 		watch if the user clicks on ads, when and how long after opening the page
 		*/
 		Button myAd = (Button) findViewById(R.id.myAd);

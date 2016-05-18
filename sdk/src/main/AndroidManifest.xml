@@ -10,14 +10,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <receiver
+        <!--<receiver
             android:name="com.d360.sdk.ConnectionChangeEvent"
             android:label="ConnectivityBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
     </application>
 

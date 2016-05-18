@@ -89,7 +89,7 @@ public class Http {
 
 		int responseCode = con.getResponseCode();
 		String responseMsg = con.getResponseMessage();
-		Log.i(TAG, "Http - Response - " + responseCode + ": " + responseMsg);
+		Log.i(TAG, "Response - " + responseCode + ": " + responseMsg);
 		//TODO: test the validity of the response here
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -103,7 +103,7 @@ public class Http {
 
 		JSONObject responseJson = new JSONObject(response.toString());
 
-		Log.i(TAG, "Http - Response JSON - " + responseJson.toString());
+		Log.i(TAG, "Response JSON - " + responseJson.toString());
 
 		return responseJson;
 	}
