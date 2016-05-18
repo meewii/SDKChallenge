@@ -34,7 +34,7 @@ public class D360SDK {
 	 * @param parameters: JSONObject, object containing information about the event
 	 */
     public static void sendEvent(String name, JSONObject parameters) {
-        Log.i(TAG, "Sending event " + name + "with parameters " + parameters.toString());
+        Log.i(TAG, "Sending event " + name + ", with parameters " + parameters.toString());
 
 		ConnectionInfo ci = new ConnectionInfo(context);
 		if(ci.isConnected()) {

@@ -35,8 +35,26 @@ public class ConnectionChangeEvent extends BroadcastReceiver {
 			parameters.put("changed_at", unixTime);
 			parameters.put("new_status", status);
 
-			// We send the status to the server through an event
-			new AsyncPostEvent("Change Connectivity Status", parameters, context).execute((Void[]) null);
+			// We send the connection status to the server through an event
+			if(ci.isConnected()) {
+
+				// the information about the last disconnection is sent
+				Long lastDisconnection = App.getLastDisconnection();
+				if(lastDisconnection!=null && lastDisconnection!=0L) {
+					parameters.put("last_disconnected_at", lastDisconnection);
+				} else {
+					parameters.put("last_disconnected_at", "-1"); // -1 for "timestamp unknown"
+				}
+
+				new AsyncPostEvent("Change Connectivity Status", parameters, context).execute((Void[]) null);
+				//TODO limit API calls in receiver (pb sometimes the receiver is triggered 2 or 3 time in a row)
+
+			} else {
+
+				// as we can't send information to the API when the phones gets offline,
+				// this information is stored until the next connection
+				App.setLastDisconnection(unixTime);
+			}
 
 		} catch (JSONException e) {
 			e.printStackTrace();
