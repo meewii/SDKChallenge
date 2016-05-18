@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject parameters = new JSONObject();
         try {
             parameters.put("mykey", "myvalue");
-            D360SDK.sendEvent("MyCustomEevent", parameters);
+            D360SDK.sendEvent("MyCustomEvent", parameters);
         } catch (JSONException e) {
             e.printStackTrace();
         }

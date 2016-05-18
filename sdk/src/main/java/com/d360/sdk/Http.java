@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class Http {
 
-	private static final String TAG = "SDKchallenge";
+	private static final String TAG = "Http";
 
 	private static final String API_URL = "http://api.dev.staging.crm.slace.me/v2/events";
 	private static Http http;
@@ -54,6 +54,7 @@ public class Http {
 		switch (method) {
 			case GET: {
 				con.setRequestMethod("GET");
+				//TODO GET method
 				break;
 			}
 			case POST: {
@@ -65,7 +66,7 @@ public class Http {
 				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 
 				//sending
-				Log.i(TAG, "Http - Sending object : " + data.toString());
+				Log.i(TAG, "Sending POST data: " + data.toString());
 				wr.writeBytes(data.toString());
 
 				wr.flush();
@@ -73,13 +74,23 @@ public class Http {
 
 				break;
 			}
+			case PUT: {
+				con.setRequestMethod("PUT");
+				//TODO PUT method
+				break;
+			}
+			case DELETE: {
+				con.setRequestMethod("DELETE");
+				//TODO DELETE method
+				break;
+			}
 		}
 
 
 		int responseCode = con.getResponseCode();
 		String responseMsg = con.getResponseMessage();
-		Log.i(TAG, "Http - Sending 'POST' request to URL : " + API_URL);
 		Log.i(TAG, "Http - Response - " + responseCode + ": " + responseMsg);
+		//TODO: test the validity of the response here
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;

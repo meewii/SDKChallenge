@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class AsyncPostEvent extends AsyncTask<Void, Void, String> {
 
-	private static final String TAG = "SDKchallenge";
+	private static final String TAG = "AsyncPostEvent";
 
 	private String mName;
 	private JSONObject mData;
