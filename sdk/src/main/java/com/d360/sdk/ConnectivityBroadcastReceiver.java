@@ -13,9 +13,9 @@ import org.json.JSONObject;
 * This BroadcastReceiver is registered by the App's dev with the method D360SDK.registerToConnectivity();
 * It is receiving actions CONNECTIVITY_ACTION
 * */
-public class ConnectionChangeEvent extends BroadcastReceiver {
+public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 
-	private static final String TAG = "ConnectionChangeEvent";
+	private static final String TAG = "BroadcastReceiver";
 
 
 	@Override

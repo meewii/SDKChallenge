@@ -11,7 +11,7 @@
         android:supportsRtl="true">
 
         <!--<receiver
-            android:name="com.d360.sdk.ConnectionChangeEvent"
+            android:name="com.d360.sdk.ConnectivityBroadcastReceiver"
             android:label="ConnectivityBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

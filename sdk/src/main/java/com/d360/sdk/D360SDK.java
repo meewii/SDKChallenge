@@ -38,7 +38,7 @@ public class D360SDK {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
 
-		BroadcastReceiver receiver = new ConnectionChangeEvent();
+		BroadcastReceiver receiver = new ConnectivityBroadcastReceiver();
 		ctx.registerReceiver(receiver, filter);
 	}
 
