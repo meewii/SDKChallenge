@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 		Example A of how the App dev could use the SDK:
 		register a BroadcastReceiver that watches the phone connectivity
 		*/
-        D360SDK.registerToConnectivity(getApplicationContext());
+        //D360SDK.registerToConnectivity(getApplicationContext());
 
 
 		/*

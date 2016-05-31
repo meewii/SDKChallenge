@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.d360.sdk.services.AsyncPostEvent;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +17,7 @@ import org.json.JSONObject;
 * */
 public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 
-	private static final String TAG = "BroadcastReceiver";
+	private final String TAG = "BroadcastReceiver";
 
 
 	@Override
@@ -23,7 +25,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 
 		// When the event CONNECTIVITY_ACTION is triggered
 		// we check the connection
-		ConnectionInfo ci = new ConnectionInfo(context);
+		ConnectionInfo ci = new ConnectionInfo();
 		String status = ci.getCurrentStatus();
 		Log.d(TAG, "Receiver - connection status: " + status);
 
@@ -46,7 +48,7 @@ public class ConnectivityBroadcastReceiver extends BroadcastReceiver {
 					parameters.put("last_disconnected_at", "-1"); // -1 for "timestamp unknown"
 				}
 
-				new AsyncPostEvent("Change Connectivity Status", parameters, context).execute((Void[]) null);
+				new AsyncPostEvent("Change Connectivity Status", parameters).execute((Void[]) null);
 
 			} else {
 

@@ -13,11 +13,11 @@ public class ConnectionInfo {
 	ConnectivityManager cm;
 	NetworkInfo activeNetwork;
 
-	private static final String TAG = "ConnectionInfo";
+	private final String TAG = "ConnectionInfo";
 
-	public ConnectionInfo(Context ctx) {
+	public ConnectionInfo() {
+		Context ctx = App.getContext();
 		cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-
 	}
 
 	/**

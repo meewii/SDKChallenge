@@ -2,9 +2,14 @@ package com.d360.sdk;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.d360.sdk.services.AsyncPostEvent;
+import com.d360.sdk.services.ServiceMain;
+
 import org.json.JSONObject;
 
 
@@ -12,7 +17,6 @@ import org.json.JSONObject;
 public class D360SDK {
 
     private static final String TAG = "D360SDK";
-    private static Context context;
 
 	/**
 	 * Init the Http connection of the SDK
@@ -20,7 +24,6 @@ public class D360SDK {
 	 * @param ctx: Context of the app
 	 */
     public static void init(String apiKey, Context ctx) {
-		context = ctx;
 
 		try {
 			Http.init(apiKey);
@@ -28,6 +31,11 @@ public class D360SDK {
 			e.printStackTrace();
 		}
 		Log.i(TAG, "Starting SDK with key " + apiKey);
+
+		App.init(ctx);
+
+		ctx.startService(new Intent(ctx, ServiceMain.class));
+		Log.d(TAG, "Service started...");
     }
 
 	/**
@@ -48,15 +56,10 @@ public class D360SDK {
 	 * @param parameters: JSONObject, object containing information about the event
 	 */
     public static void sendEvent(String name, JSONObject parameters) {
-        Log.i(TAG, "Sending event " + name + ", with parameters " + parameters.toString());
 
-		ConnectionInfo ci = new ConnectionInfo(context);
-		if(ci.isConnected()) {
-			new AsyncPostEvent(name, parameters, context).execute((Void[]) null);
-		} else {
+		Log.i(TAG, "Sending event " + name + ", with parameters " + parameters.toString());
 
-			Toast.makeText(context, "You're offline", Toast.LENGTH_SHORT).show();
+		new AsyncPostEvent(name, parameters).execute((Void[]) null);
 
-		}
     }
 }

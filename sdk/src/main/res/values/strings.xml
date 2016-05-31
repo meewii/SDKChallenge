@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SDK</string>
+    <string name="preference_file_key">my preferences</string>
+    <string name="pref_key_stored_events">pref key stored events</string>
 </resources>
