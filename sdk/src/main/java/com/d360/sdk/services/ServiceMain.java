@@ -8,19 +8,18 @@ import android.util.Log;
 
 import com.d360.sdk.App;
 import com.d360.sdk.ConnectionInfo;
+import com.d360.sdk.objects.Event;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ServiceMain extends Service {
 
-
+	private ConnectionInfo ci;
 	private final String TAG = "Service";
 	private Timer timer;
 
@@ -28,14 +27,15 @@ public class ServiceMain extends Service {
 	public void onCreate() {
 		super.onCreate();
 
-		initSchedulers();
+		ci = new ConnectionInfo();
+		initScheduler();
 	}
 
 
 	/**
-	 * init all schedulers
+	 * Starts the Timer that check the stored events every 5s
 	 */
-	private void initSchedulers() {
+	private void initScheduler() {
 
 		if(timer != null){
 			timer.cancel();
@@ -43,33 +43,19 @@ public class ServiceMain extends Service {
 
 		timer = new Timer();
 
-		// Schedule 0ms delay, every 5s
 		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 
-
 				try {
 					Log.i(TAG, "Total event in prefs: "+App.getStoredEventsSize());
-					if(
-						App.isConnected() &&
+					if(ci.isConnected() &&
 						App.getStoredEventsSize() != 0) {
+						// Process the events only if the phone is online
+						// and if the SharedPreferences contain events
 
-						Map<String,?> events = App.getStoredEvents();
-
-						for(Map.Entry<String,?> entry : events.entrySet()){
-
-							String event = entry.getValue().toString();
-
-							String[] parts = event.split("°");
-							String name = parts[0];
-							String strJson = parts[1];
-							JSONObject parameters = new JSONObject(strJson);
-
-							Log.w(TAG, "SEND to API: "+name+" -- "+strJson);
-							new AsyncPostEvent(entry.getKey(), name, parameters).execute((Void[]) null);
-						}
+						processStoredEvents(App.getStoredEvents());
 
 					}
 
@@ -77,13 +63,41 @@ public class ServiceMain extends Service {
 					e.printStackTrace();
 				}
 
-
 			}
 
-		}, 0, 5000);
+		}, 0, 5000); // Delay 0ms, every 5s
 
 	}
 
+	/*
+	* Send stored events to API
+	* */
+	private void processStoredEvents(Map<String, ?> events) {
+
+		// Loop through all shared preferences
+		for(Map.Entry<String,?> entry : events.entrySet()){
+
+			// Get back event objects for each pref
+			String eventStr = entry.getValue().toString();
+			Gson gson = new Gson();
+			Event event = gson.fromJson(eventStr, Event.class);
+
+			//Log.w(TAG, "GET from Gson: "+event.getName()+" -- "+event.getId()+" -- "+event.getStatus());
+
+			// Check the status, must be Idle to be sent
+			String status = event.getStatus();
+			if(status != null && status.contentEquals(Event.STATUS_IDLE)) {
+				// Update status as it's now being processed
+				App.updateEventStatus(event, Event.STATUS_PROCESSING);
+
+				new AsyncPostEvent(event)
+						.execute((Void[]) null);
+			} else {
+				Log.w(TAG, "Status was on \"processing\", for id: "+event.getKey());
+			}
+//;
+		}
+	}
 
 
 	@Nullable

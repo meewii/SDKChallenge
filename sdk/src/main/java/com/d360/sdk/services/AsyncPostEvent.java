@@ -1,12 +1,12 @@
 package com.d360.sdk.services;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.d360.sdk.App;
 import com.d360.sdk.ConnectionInfo;
 import com.d360.sdk.Http;
+import com.d360.sdk.objects.Event;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,25 +15,24 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, Integer> {
 
 	private static final String TAG = "AsyncPostEvent";
 
-	private String mId;
-	private String mName;
-	private JSONObject mData;
-	private Context mContext;
+	private Event mEvent;
 
 	private final int STATUS_FAIL = 0;
 	private final int STATUS_OK = 1;
 
+	/*
+	Constructor used when this is the 1st time we send this event to the API
+	 */
 	public AsyncPostEvent(String name, JSONObject parameters) {
-		mName = name;
-		mData = parameters;
-		mContext = App.getContext();
+		mEvent = new Event(name, parameters);
 	}
 
-	public AsyncPostEvent(String id, String name, JSONObject parameters) {
-		mId = id;
-		mName = name;
-		mData = parameters;
-		mContext = App.getContext();
+	/*
+	Constructor used when the event was already created and the connection failed,
+	the event was stored in the SharedPreferences
+	 */
+	public AsyncPostEvent(Event event) {
+		mEvent = event;
 	}
 
 
@@ -50,7 +49,7 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, Integer> {
 
 			// Build the meta
 			// add name given by the App's dev
-			meta.put("name",mName);
+			meta.put("name", mEvent.getName());
 
 			// add timestamp
 			long unixTime = System.currentTimeMillis() / 1000L;
@@ -61,15 +60,15 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, Integer> {
 			String status = ci.getCurrentStatus();
 			meta.put("connectionInfo", status);
 
-			// create an event number (i didn't know how to generate it so i created a random number)
+			// create an event number (i didn't know how to generate it so I created a random number)
 			int eventNo = (int)(Math.random()*10000);
 			meta.put("eventNo", eventNo);
 
 			parent.put("meta", meta);
 
 			// Build the data (parameters given by the App's dev
-			if(mData != null) {
-				parent.put("data", mData);
+			if(mEvent.getData() != null) {
+				parent.put("data", mEvent.getData());
 			} else {
 				parent.put("data", "");
 			}
@@ -88,9 +87,11 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, Integer> {
 						int responseHttpCode = responseMeta.getInt("httpCode");
 						if(responseHttpCode == 201) {
 							Log.i(TAG, "SuccessAPI: "+response.toString());
-							Log.i(TAG, "ID: "+mId);
+							Log.i(TAG, "ID: "+mEvent.getKey());
 
-							if(mId != null)	App.clearEventFromStorage(mId);
+							// If "POST event" is a success and if the event was previously
+							// stored in the prefs, we delete it from prefs
+							if(mEvent.getKey() != null)	App.clearEventFromStorage(mEvent.getKey());
 
 							return STATUS_OK;
 						} else {
@@ -129,12 +130,21 @@ public class AsyncPostEvent extends AsyncTask<Void, Void, Integer> {
 			case STATUS_FAIL:
 				Log.d(TAG, "AsyncPostEvent.onPostExecute - STATUS_FAIL");
 
-				if(mId == null) {
-					Log.w(TAG, "generating ID...");
-					mId = App.generateId();
-					App.storeEvent(mId, mName, mData);
+
+				if(mEvent.getKey() == null) {
+					// if POST event has failed, we store the event in the preferences
+
+					// set status as "idle" when the event is stored
+					mEvent.setStatus(Event.STATUS_IDLE);
+
+					// we use a generated key if the event was never stored before
+					mEvent.setkey(App.generateKey());
+
+					App.storeEvent(mEvent);
 				} else {
-					Log.w(TAG, "ID: "+mId);
+					// the event is already stored but its status is set back to idle
+					// as the process is done
+					App.updateEventStatus(mEvent, Event.STATUS_IDLE);
 				}
 
 				break;

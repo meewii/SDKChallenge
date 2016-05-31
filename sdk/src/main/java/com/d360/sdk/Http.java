@@ -66,7 +66,7 @@ public class Http {
 				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 
 				//sending
-				//Log.i(TAG, "Sending POST data: " + data.toString());
+				Log.i(TAG, "Sending POST data: " + data.toString());
 				wr.writeBytes(data.toString());
 
 				wr.flush();

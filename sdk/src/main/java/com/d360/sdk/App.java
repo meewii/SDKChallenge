@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.d360.sdk.objects.Event;
+import com.google.gson.Gson;
+
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.UUID;
@@ -18,7 +20,6 @@ public class App extends Application {
 	private static Context context;
 	private static Long lastDisconnection;
 	private static SharedPreferences sharedPref;
-	private static ConnectionInfo connectionInfo;
 
 	/*
 	* Getter&Setter application's context
@@ -29,7 +30,6 @@ public class App extends Application {
 
 	public static void init(Context ctx) {
 		context = ctx;
-		connectionInfo = new ConnectionInfo();
 	}
 
 	/*
@@ -44,24 +44,56 @@ public class App extends Application {
 	}
 
 
+
+	/*
+	SHARED PREFERENCES
+	if an event was sent to the server but the process failed (e.g. the phone is offline)
+	the event is stored in a SharedPreferences
+	 */
+	//TODO: store events in a DB
+
+	/*
+	 * return the SharedPreferences sheet in which we store our events, there can be several
+	 */
 	private static SharedPreferences getEventsSharedPreferences() {
-		int mode = Context.MODE_PRIVATE;
 		if(sharedPref == null) {
 			sharedPref = context.getSharedPreferences(
-					context.getString(R.string.pref_key_stored_events), mode);
+					context.getString(R.string.pref_key_stored_events), Context.MODE_PRIVATE);
 		}
 		return sharedPref;
 	}
 
-	public static void storeEvent(String id, String event, JSONObject json) {
+
+	/*
+	 * Add a event to the sheet
+	 */
+	public static void storeEvent(Event event) {
 		SharedPreferences.Editor editor = getEventsSharedPreferences().edit();
-		// To be able to store the complete event name+json, we put both in a string
-		editor.putString(id, event +"°"+json.toString());
-		editor.apply();
+
+		Gson gson = new Gson();
+		String json = gson.toJson(event);
+		editor.putString(event.getKey(), json);
+		editor.commit();
 	}
 
 	/*
-	 * delete one event by id (key)
+	* Two statuses: Processing or Idle,
+	* The event is processing when it is being sent through AsyncPostEvent
+	* It is Idle when the evnt is created or after processing+failure through AsyncPostEvent
+	* */
+	public static void updateEventStatus(Event event, String status) {
+		SharedPreferences.Editor editor = getEventsSharedPreferences().edit();
+
+		Log.d(TAG, "Update status to "+status+", id: "+event.getKey());
+		event.setStatus(status);
+		Gson gson = new Gson();
+		String json = gson.toJson(event);
+		editor.putString(event.getKey(), json);
+		editor.commit();
+	}
+
+	/*
+	 * delete one event by id
 	 */
 	public static void clearEventFromStorage(String id) {
 		Log.w(TAG, "Clear event: "+id);
@@ -94,14 +126,11 @@ public class App extends Application {
 		return getEventsSharedPreferences().getAll();
 	}
 
-
-	public static boolean isConnected() {
-		return connectionInfo.isConnected();
-	}
-
-
-	public static String generateId() {
-		UUID id = UUID.randomUUID();
-		return id.toString();
+	/*
+	 * Generate an id for each event that is stored in the SharedPreferences
+	 */
+	public static String generateKey() {
+		UUID key = UUID.randomUUID();
+		return key.toString();
 	}
 }
