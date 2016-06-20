@@ -1,0 +1,280 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 LucidaGrande;
+\f3\fmodern\fcharset0 Courier;\f4\fmodern\fcharset0 Courier-Bold;\f5\fnil\fcharset0 Monaco;
+}
+{\colortbl;\red255\green255\blue255;\red179\green179\blue179;\red135\green135\blue135;\red85\green138\blue3;
+\red93\green108\blue125;\red133\green0\blue67;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid1\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{square\}}{\leveltext\leveltemplateid101\'01\uc0\u9642 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20720\viewh27380\viewkind0
+\deftab720
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth15640\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat1 \clwWidth15640\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+\cf0 \expnd0\expndtw0\kerning0
+{{\NeXTGraphic page1image840.png \width3203 \height1248
+}¬}\pard\intbl\itap1\pardeftab720
+\cf0 \expnd0\expndtw0\kerning0
+ {{\NeXTGraphic page1image1008.png \width9511 \height17
+}¬}\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs58 \cf0 \expnd0\expndtw0\kerning0
+SDK Developer Challenge 
+\fs50 \expnd0\expndtw0\kerning0
+Introduction 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+In this test you will be developing an application for the mobile platform for which you are applying (iOS or Android) 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+
+\f1\fs30 \expnd0\expndtw0\kerning0
+This document outlines the requirements and functionalities your application must provide. In addition to the core requirements, feel free to give suggestions of how the functionality of your app could be extended. This test has been designed with a particular focus on SDK development. We define an SDK as a self- contained module that is an optional, defensive part of a software an application. 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+
+\f1\fs30 \expnd0\expndtw0\kerning0
+Therefore, please make sure there are as few dependencies as possible between your SDK and the software application into which it is integrated. 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs50 \cf0 \expnd0\expndtw0\kerning0
+Challenge 
+\fs38 \expnd0\expndtw0\kerning0
+Description 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+Build a mobile SDK that allows an app developer to track user events in his application. Those events are sent to a 
+\i \expnd0\expndtw0\kerning0
+Events REST API 
+\i0 \expnd0\expndtw0\kerning0
+which is described bellow. The SDK you build should cover the following user stories. 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs38 \cf0 \expnd0\expndtw0\kerning0
+User Stories 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\sa240
+\ls1\ilvl0
+\f1\fs30 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8259 	}\expnd0\expndtw0\kerning0
+As an app developer, I want to initialise the SDK with my API key\
+\ls1\ilvl0\cf0 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8259 	}\expnd0\expndtw0\kerning0
+As an app developer, I want to track events with a custom name\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8259 	}\expnd0\expndtw0\kerning0
+As an app developer, I want to optionally add a list of key/value parameters to each event \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	\uc0\u8259 	}\expnd0\expndtw0\kerning0
+As an app developer, I want to have a sample app that can be used to demonstrate the SDK functionality \
+\pard\intbl\itap1\tx566\pardeftab720\sa240
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs38 \cf0 \expnd0\expndtw0\kerning0
+Constraints 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+From the above requirements we can derive the following quality criteria which we will use to assess your solution. 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat1 \clwWidth15640\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\sa240
+\ls2\ilvl0
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+Functional design\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+Code best practices\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+SDK stability\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+The application must be easy to compile and deploy on a physical device \
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+The challenge should not take more than 5 days 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+\ls2\ilvl0
+\f1\fs30 \kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+The source code should be available for us via Bitbucket or GitHub\
+\ls2\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u9642 
+\f1 	}\expnd0\expndtw0\kerning0
+Think of this project as something that would be continued with a team as an actual SDK 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+We look forward to seeing what you make! 
+\f0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs50 \cf0 \expnd0\expndtw0\kerning0
+Events API \
+\
+
+\fs38 \expnd0\expndtw0\kerning0
+Endpoint 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+The events endpoint is 
+\f3 \expnd0\expndtw0\kerning0
+POST http://api.dev.staging.crm.slace.me/v2/events \
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs38 \cf0 \expnd0\expndtw0\kerning0
+Header 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+Each request must have the HTTP header
+\b  
+\f4 \expnd0\expndtw0\kerning0
+D360-Api-Key 
+\f3\b0 \
+
+\f1 \expnd0\expndtw0\kerning0
+that contains the SDK key set by the developer: 
+\f5\fs26 \expnd0\expndtw0\kerning0
+ D360-Api-Key:<YOUR_API_KEY>\
+
+\f1\fs30 \expnd0\expndtw0\kerning0
+The API keys to use are \
+\pard\intbl\itap1\pardeftab720\sa240
+
+\b \cf0 \expnd0\expndtw0\kerning0
+Android: 
+\f3\b0 \expnd0\expndtw0\kerning0
+kilctuhEeONbf-V1JMH7\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\b\fs38 \cf0 \expnd0\expndtw0\kerning0
+JSON Payload 
+\f0\b0\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+The request JSON payload format is the following
+\f0\fs24 \expnd0\expndtw0\kerning0
+\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clcbpat1 \clwWidth11900\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa240
+
+\f5\fs26 \cf3 \expnd0\expndtw0\kerning0
+\{\uc0\u8232 \cf4 \expnd0\expndtw0\kerning0
+"data"\cf3 \expnd0\expndtw0\kerning0
+: \{ 
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720
+
+\f5\fs26 \cf5 \expnd0\expndtw0\kerning0
+        // Any kind of key/value parameters set by the developer\
+\pard\intbl\itap1\pardeftab720\sa240
+\cf3 \expnd0\expndtw0\kerning0
+\}, \cf4 \expnd0\expndtw0\kerning0
+"meta"\cf3 \expnd0\expndtw0\kerning0
+: \{ 
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\intbl\itap1\pardeftab720
+
+\f5\fs26 \cf5 \expnd0\expndtw0\kerning0
+    // Sequence number that increments for each event\
+\pard\intbl\itap1\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+    "eventNo"\cf3 \expnd0\expndtw0\kerning0
+: \cf6 \expnd0\expndtw0\kerning0
+150\cf3 \expnd0\expndtw0\kerning0
+,\
+\pard\intbl\itap1\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+    // The UNIX timestamp in seconds when the event was created\
+\pard\intbl\itap1\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+    "localTimeStamp"\cf3 \expnd0\expndtw0\kerning0
+: \cf6 \expnd0\expndtw0\kerning0
+1458578476\cf3 \expnd0\expndtw0\kerning0
+,\
+\pard\intbl\itap1\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+    // The name of the event set by the developer.\
+    // The accepted pattern is '^ev_[A-Za-z0-9]+'\
+\pard\intbl\itap1\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+    "name"\cf3 \expnd0\expndtw0\kerning0
+: \cf4 \expnd0\expndtw0\kerning0
+"ev_MyCustomEvent"\cf3 \expnd0\expndtw0\kerning0
+,\
+\pard\intbl\itap1\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+    // Either 'wifi' or 'mobile' depending in the device connection state\
+\pard\intbl\itap1\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+    "connectionInfo"\cf3 \expnd0\expndtw0\kerning0
+: \cf4 \expnd0\expndtw0\kerning0
+"wifi"\
+\cf3 \expnd0\expndtw0\kerning0
+  \}\
+\pard\intbl\itap1\pardeftab720\sa240
+\cf3 \expnd0\expndtw0\kerning0
+\} 
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth11900\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadb20 \clpadr20 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720
+\cf0 \expnd0\expndtw0\kerning0
+\cell \lastrow\row
+}
