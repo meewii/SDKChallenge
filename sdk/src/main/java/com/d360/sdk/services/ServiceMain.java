@@ -49,7 +49,7 @@ public class ServiceMain extends Service {
 			public void run() {
 
 				try {
-					Log.i(TAG, "Total event in prefs: "+App.getStoredEventsSize());
+					//Log.i(TAG, "Total event in prefs: "+App.getStoredEventsSize());
 					if(ci.isConnected() &&
 						App.getStoredEventsSize() != 0) {
 						// Process the events only if the phone is online
